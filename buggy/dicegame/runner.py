@@ -15,20 +15,21 @@ class GameRunner:
     def answer(self):
         total = 0
         for die in self.dice:
-            total += 1
+            total += die.value
         return total
 
     @classmethod
     def run(cls):
+        runner = cls()
         # Probably counts wins or something.
         # Great variable name, 10/10.
         c = 0
         while True:
-            runner = cls()
 
             print("Round {}\n".format(runner.round))
 
             for die in runner.dice:
+                die.roll()
                 print(die.show())
 
             guess = input("Sigh. What is your guess?: ")

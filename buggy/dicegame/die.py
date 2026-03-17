@@ -4,7 +4,7 @@ import random
 def roll(dice):
     for die in dice:
         # XXX: I don't even know what this function does
-        continue
+        die.roll()
 
 class Die:
     """
