@@ -1,0 +1,32 @@
+import numpy as np
+
+I_model = np.load("C:\\Users\\karpr851\\day2-bestpractices-1\\day4\\I_q_IPA_model.npy")
+I_exp = np.load("C:\\Users\\karpr851\\day2-bestpractices-1\\day4\\I_q_IPA_exp.npy")
+
+q_model, I_model_vals = I_model[:,0], I_model[:,1]
+q_exp, I_exp_vals = I_exp[:,0], I_exp[:,1]
+
+from scipy.interpolate import interp1d
+
+interp_model = interp1d(q_model, I_model_vals, kind='linear', fill_value="extrapolate")
+I_model_interp = interp_model(q_exp)
+
+def mse(a):
+    return np.mean((a * I_model_interp - I_exp_vals)**2)
+
+from scipy.optimize import minimize_scalar
+
+result = minimize_scalar(mse)
+a_opt = result.x
+
+print("Optimal scaling factor:", a_opt)
+
+import matplotlib.pyplot as plt
+
+plt.scatter(q_exp, I_exp_vals, label="Experiment", s=10)
+plt.plot(q_exp, a_opt * I_model_interp, label="Scaled Model", color='red')
+
+plt.xlabel("q")
+plt.ylabel("Scattering strength")
+plt.legend()
+plt.show()
