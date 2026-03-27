@@ -1,0 +1,5 @@
+My research is based on grid systems.
+
+In this project, I've preloaded a grid from CIGRE network and added some loads manually and plotted it.
+
+I combined it with load data in a time series in excel to run a powerflow analysis to figure out line loading and voltage loading at each nodes.
